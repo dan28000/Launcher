@@ -1036,23 +1036,6 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv)
 
 bool Application::createSetupWizard()
 {
-    bool javaRequired = [&]()
-    {
-        QString currentHostName = QHostInfo::localHostName();
-        QString oldHostName = settings()->get("LastHostname").toString();
-        if (currentHostName != oldHostName)
-        {
-            settings()->set("LastHostname", currentHostName);
-            return true;
-        }
-        QString currentJavaPath = settings()->get("JavaPath").toString();
-        QString actualPath = FS::ResolveExecutable(currentJavaPath);
-        if (actualPath.isNull())
-        {
-            return true;
-        }
-        return false;
-    }();
     bool analyticsRequired = [&]()
     {
         if(!m_analytics) {
@@ -1075,7 +1058,7 @@ bool Application::createSetupWizard()
             return true;
         return false;
     }();
-    bool wizardRequired = javaRequired || analyticsRequired || languageRequired;
+    bool wizardRequired = analyticsRequired || languageRequired;
 
     if(wizardRequired)
     {
