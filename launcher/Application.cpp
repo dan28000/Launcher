@@ -1067,10 +1067,6 @@ bool Application::createSetupWizard()
         {
             m_setupWizard->addPage(new LanguageWizardPage(m_setupWizard));
         }
-        if (javaRequired)
-        {
-            m_setupWizard->addPage(new JavaWizardPage(m_setupWizard));
-        }
         if(analyticsRequired)
         {
             m_setupWizard->addPage(new AnalyticsWizardPage(m_setupWizard));
